@@ -17,13 +17,41 @@ html {
     position: fixed;
 }
 
+#move-page {
+    display: flex;
+    margin-top: 48vh;
+    justify-content: space-between;
+    color: #ffffff;
+    height: 50px;
+    width: 100%;
+    font-size: 50px;
+    position: fixed;
+}
+
+#btn-left, #btn-right {
+    margin: 0 50px 0 50px;
+    cursor: pointer;
+}
+
+#btn-left:hover, #btn-right:hover {
+    opacity: 0.7;
+}
+
+#main {
+    width: 100%;
+
+    position: relative;
+
+    transition: 1s;
+}
+
 #cd {
     position: relative;
 }
 
 #control-player {
     position: absolute;
-    top: 74%;
+    top: 73%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -40,6 +68,7 @@ html {
 #controls {
     width: 600px;
     height: 300px;
+    margin-top: 550px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -62,7 +91,7 @@ html {
     display: flex;
     position: absolute;
     left: 50%;
-    top: 40%;
+    top: 78%;
     color: red;
     transform: translate(-50%, 0);
 }

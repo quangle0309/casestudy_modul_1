@@ -12,6 +12,10 @@ const repeatBtn = $('#repeat');
 const playlist = $('#list-song');
 const timeUpdate = $('#time-update');
 const timeCurrentSong = $('#time-currentSong');
+const btnRight = $('#btn-right');
+const btnLeft = $('#btn-left');
+const mainPage = $('#main');
+let btnOn = false;
 let isPause = false;
 let isRandom = false;
 let isRepeat = false;
@@ -143,7 +147,7 @@ const app = {
         }
     },
 
-    playRandomSong: function() {
+    playRandomSong: function () {
         let newCurrentIndex;
         do {
             newCurrentIndex = Math.floor(Math.random() * this.songs.length)
@@ -153,14 +157,14 @@ const app = {
         this.render();
     },
 
-    secondToMinute: function(seconds) {
+    secondToMinute: function (seconds) {
         let minutes = Math.floor(seconds / 60);
         let remainingSeconds = Math.floor(seconds % 60);
         return (minutes < 10 ? "0" : "") + minutes + ":" +
             (remainingSeconds < 10 ? "0" : "") + remainingSeconds;
     },
 
-    getTimeCurrentSong: function() {
+    getTimeCurrentSong: function () {
         if (!isNaN(audio.duration)) {
             timeCurrentSong.innerHTML = this.secondToMinute(audio.duration);
         } else {
@@ -256,7 +260,7 @@ const app = {
         }
 
         //Lắng nghe hành vi khi click vào play-list
-        playlist.onclick = function(e) {
+        playlist.onclick = function (e) {
             const songNode = e.target.closest('.song:not(.active)');
             if (songNode || e.target.closest('.option')) {
                 if (songNode) {
@@ -265,9 +269,30 @@ const app = {
                     _this.render();
                     _this.cdThumbAnimate.play();
                     playing.innerHTML = '<i class="fa-solid fa-pause"></i>'
+                    if (!isPause) {
+                        isPause = !isPause;
+                    }
                     audio.play();
                 }
             }
+        }
+
+        btnRight.onclick = function() {
+            if (!btnOn) {
+                mainPage.style.transform = 'translateX(0%)'
+            } else {
+                mainPage.style.transform = 'translateX(-100%)'
+            }
+            btnOn = !btnOn;
+        }
+
+        btnLeft.onclick = function() {
+            if (!btnOn) {
+                mainPage.style.transform = 'translateX(0%)'
+            } else {
+                mainPage.style.transform = 'translateX(+100%)'
+            }
+            btnOn = !btnOn;
         }
     },
 
@@ -275,7 +300,6 @@ const app = {
         this.render();
         this.loadCurrentSong();
         this.handleEvent();
-        this.getTimeCurrentSong();
     }
 }
 app.start();
